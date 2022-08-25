@@ -61,8 +61,8 @@ evmosd keys unsafe-export-eth-key validatorkey --keyring-backend file
 ```
 ## Safe wallet Info
 ```
-EVMOSD_WALLET_ADDRESS=$(EVMOSD keys show $VALIDATORKEY -a)
-EVMOSD_VALOPER_ADDRESS=$(EVMOSD keys show $VALIDATORKEY --bech val -a)
+EVMOSD_WALLET_ADDRESS=$(evmosd keys show $VALIDATORKEY -a)
+EVMOSD_VALOPER_ADDRESS=$(evmosd keys show $VALIDATORKEY --bech val -a)
 echo 'export EVMOSD_WALLET_ADDRESS='${EVMOSD_WALLET_ADDRESS} >> $HOME/.bash_profile
 echo 'export EVMOSD_VALOPER_ADDRESS='${EVMOSD_VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
