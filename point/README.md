@@ -22,10 +22,10 @@
 ## [Manual Install](https://github.com/elangrr/Point-Network/blob/main/Manual_install.md) , WARNING! The variable are different from official guide and this guide
 
 ## Minimum Requirements
-4 or more physical CPU cores
-At least 500GB of SSD disk storage
-At least 32GB of memory (RAM)
-At least 100mbps network bandwidth
+ - 4 or more physical CPU cores
+ - At least 500GB of SSD disk storage
+ - At least 32GB of memory (RAM)
+ - At least 100mbps network bandwidth
 
 ## Automatic Install ##
 ```
