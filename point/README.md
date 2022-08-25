@@ -4,6 +4,10 @@
 </p>
 
 <p style="font-size:14px" align="right">
+<a href="https://github.com/elangrr/testnet_manuals" target="_blank">More Guide Tutorials<img src="https://avatars.githubusercontent.com/u/34649601?v=4" width="30"/></a>
+</p>
+
+<p style="font-size:14px" align="right">
 <a href="https://indonode.dev/" target="_blank">Visit my website <img src="https://avatars.githubusercontent.com/u/34649601?v=4" width="30"/></a>
 </p>
 
@@ -41,11 +45,11 @@ evmosd status 2>&1 | jq .SyncInfo
 ## Create Wallet
 Create validator wallet using this command, Dont forget to save the Mnemonic!
 ```
-evmosd keys add $validatorkey --keyring-backend file
+evmosd keys add $VALIDATORKEY --keyring-backend file
 ```
 (OPTIONAL) To recover using your previous saved wallet
 ```
-evmosd keys add $validatorkey --recover
+evmosd keys add $VALIDATORKEY --recover
 ```
 To get current list of wallet
 ```
@@ -57,8 +61,8 @@ evmosd keys unsafe-export-eth-key validatorkey --keyring-backend file
 ```
 ## Safe wallet Info
 ```
-EVMOSD_WALLET_ADDRESS=$(EVMOSD keys show $validatorkey -a)
-EVMOSD_VALOPER_ADDRESS=$(EVMOSD keys show $validatorkey --bech val -a)
+EVMOSD_WALLET_ADDRESS=$(EVMOSD keys show $VALIDATORKEY -a)
+EVMOSD_VALOPER_ADDRESS=$(EVMOSD keys show $VALIDATORKEY --bech val -a)
 echo 'export EVMOSD_WALLET_ADDRESS='${EVMOSD_WALLET_ADDRESS} >> $HOME/.bash_profile
 echo 'export EVMOSD_VALOPER_ADDRESS='${EVMOSD_VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
