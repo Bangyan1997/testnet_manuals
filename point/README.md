@@ -25,7 +25,7 @@ At least 100mbps network bandwidth
 
 ## Automatic Install ##
 ```
-wget -O point.sh https://raw.githubusercontent.com/elangrr/point-auto/main/point.sh && chmod +x point.sh && ./point.sh
+wget -O point.sh https://github.com/elangrr/point-auto/blob/main/point.sh && chmod +x point.sh && ./point.sh
 ```
 ## After install please Load Variable! (Post Installation)
 ```
