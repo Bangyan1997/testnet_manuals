@@ -14,10 +14,10 @@
 </p>
 
 <p align="center">
-  <img height="100" height="auto" src="https://user-images.githubusercontent.com/50621007/177979901-4ac785e2-08c3-4d61-83df-b451a2ed9e68.png">
+  <img height="100" height="auto" src="https://user-images.githubusercontent.com/50621007/169664551-39020c2e-fa95-483b-916b-c52ce4cb907c.png">
 </p>
 
-# Generate Aura Euphoria Testnet Gentx
+# Generate Gentx for sei atlantic-sub-2
 
 ## Setting up vars
 Here you have to put name of your moniker (validator) that will be visible in explorer
@@ -29,7 +29,7 @@ Save and import variables into system
 ```
 echo "export NODENAME=$NODENAME" >> $HOME/.bash_profile
 echo "export WALLET=wallet" >> $HOME/.bash_profile
-echo "export CHAIN_ID=euphoria-1" >> $HOME/.bash_profile
+echo "export CHAIN_ID=atlantic-sub-2" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
@@ -57,42 +57,46 @@ source ~/.bash_profile
 
 ## Download and install binaries
 ```
-git clone https://github.com/aura-nw/aura && cd aura
-git checkout euphoria_4027003
+cd $HOME
+git clone https://github.com/sei-protocol/sei-chain.git && cd $HOME/sei-chain
+git checkout 1.1.2beta-internal
 make install
 ```
 
 ## Config app
 ```
-aurad config chain-id $CHAIN_ID
-aurad config keyring-backend test
+seid config chain-id $CHAIN_ID
+seid config keyring-backend test
 ```
 
 ## Init node
 ```
-aurad init $NODENAME --chain-id $CHAIN_ID
+seid init $NODENAME --chain-id $CHAIN_ID
 ```
 
-## Recover or create new wallet for Euphoria Testnet
+## Recover or create new wallet for Incentivized testnet
+> ! If you are generating new wallet please don't forget to write down your 24-word mnemonic !
+
 Option 1 - generate new wallet
 ```
-aurad keys add $WALLET
+seid keys add $WALLET
 ```
 
 Option 2 - recover existing wallet
 ```
-aurad keys add $WALLET --recover
+seid keys add $WALLET --recover
 ```
 
 ## Add genesis account
 ```
-WALLET_ADDRESS=$(aurad keys show $WALLET -a)
-aurad add-genesis-account $WALLET_ADDRESS 3600000000ueaura
+WALLET_ADDRESS=$(seid keys show $WALLET -a)
+seid add-genesis-account $WALLET_ADDRESS 10000000usei
 ```
 
 ## Generate gentx
+Please fill up `<your_validator_description>`, `<your_email>` and `<your_website>` with your own values
 ```
-aurad gentx $WALLET 3600000000ueaura \
+seid gentx $WALLET 10000000usei \
 --chain-id $CHAIN_ID \
 --moniker=$NODENAME \
 --commission-max-change-rate=0.01 \
@@ -104,14 +108,13 @@ aurad gentx $WALLET 3600000000ueaura \
 ```
 
 ## Things you have to backup
-- `12 word mnemonic` of your generated wallet
-- contents of `$HOME/.aura/config/*`
+- `24 word mnemonic` of your generated wallet
+- contents of `$HOME/.sei/config/*`
 
 ## Submit PR with Gentx
-1. Copy the contents of `$HOME/.aura/config/gentx/gentx-XXXXXXXX.json`
-2. Fork https://github.com/aura-nw/testnets
-3. Create a file `gentx-{VALIDATOR_NAME}.json` under the `testnets/euphoria-1/gentx` folder in the forked repo, paste the copied text into the file.
-4. Upload your logo file into `{VALOPER_ADDRESS}.png` under the `testnets/euphoria-1/logo` folder.
-5. Create a Pull Request to the main branch of the repository
+1. Copy the contents of `$HOME/.sei/config/gentx/gentx-XXXXXXXX.json`
+2. Fork https://github.com/sei-protocol/testnet
+3. Create a file `{VALIDATOR_NAME}.json` under the `testnet/atlantic-subchains/atlantic-sub-2/gentx` folder in the forked repo, paste the copied text into the file.
+4. Create a Pull Request to the main branch of the repository
 
 ### Await further instructions!

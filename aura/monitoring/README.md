@@ -23,7 +23,9 @@
 ## Prerequisites
 
 ### Install exporters on validator node
-First of all you will have to install exporters on validator node. For that you can use one-liner below
+First of all you will have to install exporters on your fullnode or validator node. For that you can use one-liner below
+> **Warning**
+> It is strongly recommended to avoid installing `cosmos-exporter` on your validator node as it can consume a lot of CPU time.
 ```
 wget -O install_exporters.sh https://raw.githubusercontent.com/kj89/cosmos_node_monitoring/master/install_exporters.sh && chmod +x install_exporters.sh && ./install_exporters.sh
 ```
@@ -84,18 +86,18 @@ source $HOME/.bash_profile
 ### Add validator into _prometheus_ configuration file
 To add validator use command with specified `VALIDATOR_IP`, `AURA_VALOPER_ADDRESS`, `AURA_WALLET_ADDRESS` and `PROJECT_NAME`
 ```
-$HOME/cosmos_node_monitoring/add_validator.sh VALIDATOR_IP AURA_VALOPER_ADDRESS AURA_WALLET_ADDRESS PROJECT_NAME
+$HOME/cosmos_node_monitoring/add_validator.sh VALIDATOR_IP PROM_PORT AURA_VALOPER_ADDRESS AURA_WALLET_ADDRESS PROJECT_NAME
 ```
 
-> example: ```$HOME/cosmos_node_monitoring/add_validator.sh 1.2.3.4 auravaloper1zyyz4m9ytdf60fn9yaafx7uy7h463n7alv2ete aura1zyyz4m9ytdf60fn9yaafx7uy7h463n7a05eshc aura```
+> example: ```$HOME/cosmos_node_monitoring/add_validator.sh 1.2.3.4 17660 auravaloper1zyyz4m9ytdf60fn9yaafx7uy7h463n7alv2ete aura1zyyz4m9ytdf60fn9yaafx7uy7h463n7a05eshc aura```
 
 To add more validators just run command above with validator values
 
-### Run docker compose
+### Run docker-compose
 Deploy the monitoring stack
 ```
 cd $HOME/cosmos_node_monitoring
-sudo docker compose up -d
+sudo docker-compose up -d
 ```
 
 ports used:
@@ -179,7 +181,7 @@ Grafana dashboard is devided into 4 sections:
 ## Cleanup all container data
 ```
 cd $HOME/cosmos_node_monitoring
-sudo docker compose down
+sudo docker-compose down
 sudo docker volume prune -f
 ```
 

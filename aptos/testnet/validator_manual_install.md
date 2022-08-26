@@ -43,6 +43,7 @@ sudo apt update && sudo apt upgrade -y
 ## 2. Install dependencies
 ```
 sudo apt-get install jq unzip -y
+sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.23.1/yq_linux_amd64 && chmod +x /usr/local/bin/yq
 ```
 
 ## 3. Install docker
@@ -80,6 +81,12 @@ mkdir ~/$WORKSPACE && cd ~/$WORKSPACE
 ```
 wget -qO docker-compose.yaml https://raw.githubusercontent.com/aptos-labs/aptos-core/main/docker/compose/aptos-node/docker-compose.yaml
 wget -qO validator.yaml https://raw.githubusercontent.com/aptos-labs/aptos-core/main/docker/compose/aptos-node/validator.yaml
+```
+
+### Set logging settings
+```
+yq -i '.services.validator.logging.options.max-file = "3"' docker-compose.yaml
+yq -i '.services.validator.logging.options.max-size = "100m"' docker-compose.yaml
 ```
 
 ### Generate keys
