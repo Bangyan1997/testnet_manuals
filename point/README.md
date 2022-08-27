@@ -42,6 +42,33 @@ Note : You have to synced to the lastest block , check the sync status with this
 evmosd status 2>&1 | jq .SyncInfo
 ```
 
+## (OPTIONAL) State Sync
+Sync your node in 5-10 Minutes!
+```
+systemctl stop evmosd
+evmosd tendermint unsafe-reset-all --home $HOME/.evmosd --keep-addr-book
+
+SNAP_RPC="http://51.11.180.20:18657/"
+
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
+echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
+
+SEEDS=""
+PEERS="e40b9738c23934abf2f34ba8091a48cd31f5a844@51.11.180.20:18656"; \
+sed -i.bak -e "s/^seeds =./seeds = "$SEEDS"/; s/^persistent_peers =./persistent_peers = "$PEERS"/" $HOME/.evmosd/config/config.toml
+
+sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).$|\1true| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).$|\1"$SNAP_RPC,$SNAP_RPC"| ; \
+s|^(trust_height[[:space:]]+=[[:space:]]+).$|\1$BLOCK_HEIGHT| ; \
+s|^(trust_hash[[:space:]]+=[[:space:]]+).$|\1"$TRUST_HASH"| ; \
+s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1""|" $HOME/.evmosd/config/config.toml
+systemctl restart evmosd
+journalctl -u evmosd -f -o cat
+```
+
 ## Create Wallet
 Create validator wallet using this command, Dont forget to save the Mnemonic!
 ```
@@ -62,7 +89,13 @@ evmosd keys unsafe-export-eth-key validatorkey --keyring-backend file
 ## Safe wallet Info
 ```
 EVMOSD_WALLET_ADDRESS=$(evmosd keys show $VALIDATORKEY -a)
+```
+Type your pharse password
+```
 EVMOSD_VALOPER_ADDRESS=$(evmosd keys show $VALIDATORKEY --bech val -a)
+```
+Type your pharse password
+```
 echo 'export EVMOSD_WALLET_ADDRESS='${EVMOSD_WALLET_ADDRESS} >> $HOME/.bash_profile
 echo 'export EVMOSD_VALOPER_ADDRESS='${EVMOSD_VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
@@ -112,7 +145,7 @@ Finally, use the wallet to send however much you need from your fund address to 
 Before creating validator please make sure you have the funds already in your wallet minimum 100 point
 To check wallet balance :
 ```
-evmosd query bank balances $EVMOSD_WALLET_ADDRESS
+evmosd query bank balances <evmos address>
 ```
 To create a validator with 1000point delegation use this command below :
 
@@ -182,20 +215,33 @@ Node Info
 evmosd status 2>&1 | jq .NodeInfo
 ```
 
-## Delegation, Etc
+## Delegation, Withdraw , Etc
 To delegate to your validator run this command :
  Note : Change <ammount> to your like , for example : 100000000000000000000apoint is 100point
 ```
 evmosd tx staking delegate $(evmosd tendermint show-address) <ammount>apoint --chain-id=point_10721-1 --from=<evmosvaloper> --gas=400000 --gas-prices=0.025apoint 
 ```
 Change `<evmosvaloper>` to your valoper address 
+
+To Withdraw all rewards without commision
+```
+evmosd tx distribution withdraw-all-rewards --from=validatorkey --chain-id point_10721-1 --gas-prices=0.025apoint
+```
+To Withdraw rewards with commision
+```
+evmosd tx distribution withdraw-rewards <evmos val> --from=validatorkey --commission --chain-id point_10721-1 --gas-prices=0.025apoint
+```
+If failed remove `--gas-prices=0.025apoint`
+
+NOTE: Change `<evmos val>` to your valoper address
+
 To check valoper address run this command :
 ```
 evmosd debug addr <evmos address>
 ```
   
 ## Validator Management
-Unjail Validator (MAKE SURE YOU ARE SYNCED WITH THE LASTEST NODE!!)
+Unjail Validator (MAKE SURE YOU ARE SYNCED WITH THE LASTEST NODE , and have 1000 Point Delegation!!)
 ```
 evmosd tx slashing unjail --from=validatorkey --chain-id=point_10721-1 --gas-prices=0.025apoint
 ```
