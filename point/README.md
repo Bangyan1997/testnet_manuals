@@ -42,33 +42,6 @@ Note : You have to synced to the lastest block , check the sync status with this
 evmosd status 2>&1 | jq .SyncInfo
 ```
 
-## (OPTIONAL) State Sync
-Sync your node in 5-10 Minutes!
-```
-systemctl stop evmosd
-evmosd tendermint unsafe-reset-all --home $HOME/.evmosd --keep-addr-book
-
-SNAP_RPC="http://51.11.180.20:18657/"
-
-LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
-TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-
-echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
-
-SEEDS=""
-PEERS="e40b9738c23934abf2f34ba8091a48cd31f5a844@51.11.180.20:18656"; \
-sed -i.bak -e "s/^seeds =./seeds = "$SEEDS"/; s/^persistent_peers =./persistent_peers = "$PEERS"/" $HOME/.evmosd/config/config.toml
-
-sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).$|\1true| ; \
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).$|\1"$SNAP_RPC,$SNAP_RPC"| ; \
-s|^(trust_height[[:space:]]+=[[:space:]]+).$|\1$BLOCK_HEIGHT| ; \
-s|^(trust_hash[[:space:]]+=[[:space:]]+).$|\1"$TRUST_HASH"| ; \
-s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1""|" $HOME/.evmosd/config/config.toml
-systemctl restart evmosd
-journalctl -u evmosd -f -o cat
-```
-
 ## Create Wallet
 Create validator wallet using this command, Dont forget to save the Mnemonic!
 ```
