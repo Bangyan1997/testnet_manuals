@@ -190,11 +190,11 @@ evmosd status 2>&1 | jq .NodeInfo
 
 ## Delegation, Withdraw , Etc
 To delegate to your validator run this command :
- Note : Change <ammount> to your like , for example : 100000000000000000000apoint is 100point
+ Note : Change <ammount> to your like , for example : 1000000000000000000000apoint is 1000point
 ```
-evmosd tx staking delegate $(evmosd tendermint show-address) <ammount>apoint --chain-id=point_10721-1 --from=<evmosvaloper> --gas=400000 --gas-prices=0.025apoint 
+evmosd tx staking delegate <evmos valoper> 1000000000000000000000apoint --from=validatorkey --chain-id=point_10721-1 --gas-prices=0.025apoint --gas=400000 
 ```
-Change `<evmosvaloper>` to your valoper address 
+Change `<evmos valoper>` to your valoper address 
 
 To Withdraw all rewards without commision
 ```
