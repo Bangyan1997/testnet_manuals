@@ -49,6 +49,33 @@ Next you have to make sure your validator is syncing blocks. You can use command
 ag0 status 2>&1 | jq .SyncInfo
 ```
 
+### Upgrade binaries to agoric-upgrade-7
+```
+sudo systemctl stop agoricd
+cd $HOME && rm $HOME/ag0 -rf
+git clone https://github.com/Agoric/ag0
+cd ag0
+git checkout agoric-upgrade-7
+make build
+sudo cp $HOME/ag0/build/ag0 /usr/local/bin
+```
+
+### State sync your node
+```
+SNAP_RPC="https://agoric-testnet-rpc.polkachu.com:443"
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
+s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"| ; \
+s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"\"|" $HOME/.agoric/config/config.toml
+
+ag0 tendermint unsafe-reset-all --home $HOME/.agoric
+sudo systemctl restart agoricd && journalctl -fu agoricd -o cat
+```
+
 ### Create wallet
 To create new wallet you can use command below. Don’t forget to save the mnemonic
 ```
@@ -271,11 +298,11 @@ ag0 tx slashing unjail \
 ### Delete node
 This commands will completely remove node from server. Use at your own risk!
 ```
-systemctl stop agoricd
-systemctl disable agoricd
-rm /etc/systemd/system/agoricd.service -rf
-rm $(which ag0) -rf
-rm $HOME/.agoric* -rf
-rm $HOME/ag0 -rf
-sed -i '/emerynet/d' ~/.bash_profile
+sudo systemctl stop agoricd
+sudo systemctl disable agoricd
+sudo rm /etc/systemd/system/agoricd.service -rf
+sudo rm $(which ag0) -rf
+sudo rm $HOME/.agoric* -rf
+sudo rm $HOME/ag0 -rf
+sudo sed -i '/emerynet/d' ~/.bash_profile
 ```

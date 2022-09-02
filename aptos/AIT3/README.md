@@ -24,7 +24,7 @@ Do this only if you received the confirmation email from Aptos team for your eli
 ## Official documentation and tools
 >Official docs: https://aptos.dev/nodes/ait/connect-to-testnet/
 >
->Status page: https://community.aptoslabs.com/it3
+>Status page: https://aptoslabs.com/leaderboard/it3
 
 ## Initialize staking pool
 
@@ -96,12 +96,14 @@ sudo wget -qO genesis.blob https://github.com/aptos-labs/aptos-ait3/raw/main/gen
 sudo wget -qO waypoint.txt https://raw.githubusercontent.com/aptos-labs/aptos-ait3/main/waypoint.txt
 sudo wget -qO docker-compose.yaml https://raw.githubusercontent.com/aptos-labs/aptos-core/main/docker/compose/aptos-node/docker-compose.yaml
 yq -i ".account_address = \"$OWNER_ADDRESS\"" keys/validator-identity.yaml
-yq -i '.services.validator.image = "${VALIDATOR_IMAGE_REPO:-aptoslabs/validator}:${IMAGE_TAG:-testnet_b2228f286b5fe7631dee62690ae5d1087017e20d}"' docker-compose.yaml
+yq -i '.services.validator.image = "${VALIDATOR_IMAGE_REPO:-aptoslabs/validator}:${IMAGE_TAG:-testnet_4219d75c57115805f0faf0ad07c17becf6580202}"' docker-compose.yaml
 yq -i '(.services.validator.ports[] | select(. == "80:8080")) = "127.0.0.1:80:8080"' docker-compose.yaml
 yq -i '(.services.validator.ports[] | select(. == "9101:9101")) = "127.0.0.1:9101:9101"' docker-compose.yaml
 yq -i 'del( .services.validator.expose[] | select(. == "80" or . == "9101") )' docker-compose.yaml
 yq -i '.services.validator.logging.options.max-file = "3"' docker-compose.yaml
 yq -i '.services.validator.logging.options.max-size = "100m"' docker-compose.yaml
+yq -i '.services.validator.ulimits.nofile.soft = 100000' $HOME/testnet/docker-compose.yaml
+yq -i '.services.validator.ulimits.nofile.hard = 100000' $HOME/testnet/docker-compose.yaml
 docker-compose up -d
 ```
 
@@ -113,9 +115,11 @@ docker-compose down --volumes
 sudo wget -qO genesis.blob https://github.com/aptos-labs/aptos-ait3/raw/main/genesis.blob
 sudo wget -qO waypoint.txt https://raw.githubusercontent.com/aptos-labs/aptos-ait3/main/waypoint.txt
 sudo wget -qO docker-compose.yaml https://raw.githubusercontent.com/aptos-labs/aptos-core/main/docker/compose/aptos-node/docker-compose-fullnode.yaml
-yq -i '.services.fullnode.image = "${VALIDATOR_IMAGE_REPO:-aptoslabs/validator}:${IMAGE_TAG:-testnet_b2228f286b5fe7631dee62690ae5d1087017e20d}"' docker-compose.yaml
+yq -i '.services.fullnode.image = "${VALIDATOR_IMAGE_REPO:-aptoslabs/validator}:${IMAGE_TAG:-testnet_4219d75c57115805f0faf0ad07c17becf6580202}"' docker-compose.yaml
 yq -i '.services.fullnode.logging.options.max-file = "3"' docker-compose.yaml
 yq -i '.services.fullnode.logging.options.max-size = "100m"' docker-compose.yaml
+yq -i '.services.fullnode.ulimits.nofile.soft = 100000' $HOME/testnet/docker-compose.yaml
+yq -i '.services.fullnode.ulimits.nofile.hard = 100000' $HOME/testnet/docker-compose.yaml
 docker-compose up -d
 ```
 
@@ -133,9 +137,9 @@ https://explorer.devnet.aptos.dev/account/<YOUR_ACCOUNT_ADDRESS>?network=ait3
 cd $HOME/$WORKSPACE
 ACC_PRIVATE_KEY=$(cat $HOME/$WORKSPACE/keys/private-keys.yaml | yq .account_private_key)
 aptos init --profile ait3-operator \
---private-key $ACC_PRIVATE_KEY \
---rest-url http://ait3.aptosdev.com \
---skip-faucet
+  --private-key $ACC_PRIVATE_KEY \
+  --rest-url http://ait3.aptosdev.com \
+  --skip-faucet
 ```
 
 Output:
@@ -162,9 +166,9 @@ This will show you the coin balance you have in the validator account. You shoul
 ```bash
 cd $HOME/$WORKSPACE
 aptos node update-validator-network-addresses  \
---pool-address $OWNER_ADDRESS \
---operator-config-file ~/$WORKSPACE/$NODENAME/operator.yaml \
---profile ait3-operator
+  --pool-address $OWNER_ADDRESS \
+  --operator-config-file ~/$WORKSPACE/$NODENAME/operator.yaml \
+  --profile ait3-operator
 ```
 
 Output:
@@ -277,14 +281,14 @@ You should expect to see this number keep increasing.
 ## Update aptos validator
 ```bash
 cd $HOME/$WORKSPACE
-yq -i '.services.validator.image = "${VALIDATOR_IMAGE_REPO:-aptoslabs/validator}:${IMAGE_TAG:-testnet_b2228f286b5fe7631dee62690ae5d1087017e20d}"' docker-compose.yaml
+yq -i '.services.validator.image = "${VALIDATOR_IMAGE_REPO:-aptoslabs/validator}:${IMAGE_TAG:-testnet_4219d75c57115805f0faf0ad07c17becf6580202}"' docker-compose.yaml
 docker-compose up -d
 ```
 
 ## Update aptos fullnode
 ```bash
 cd $HOME/$WORKSPACE
-yq -i '.services.fullnode.image = "${VALIDATOR_IMAGE_REPO:-aptoslabs/validator}:${IMAGE_TAG:-testnet_b2228f286b5fe7631dee62690ae5d1087017e20d}"' docker-compose.yaml
+yq -i '.services.fullnode.image = "${VALIDATOR_IMAGE_REPO:-aptoslabs/validator}:${IMAGE_TAG:-testnet_4219d75c57115805f0faf0ad07c17becf6580202}"' docker-compose.yaml
 docker-compose up -d
 ```
 
@@ -315,6 +319,31 @@ time_left=$((-time_left))
 printf '%02dh:%02dm:%02ds\n' $((time_left/3600)) $((time_left%3600/60)) $((time_left%60))
 ```
 
+
+Increase open file limit for validator node
+```bash
+yq -i '.services.validator.ulimits.nofile.soft = 100000' $HOME/testnet/docker-compose.yaml
+yq -i '.services.validator.ulimits.nofile.hard = 100000' $HOME/testnet/docker-compose.yaml
+```
+
+Increase open file limit for fullnode
+```bash
+yq -i '.services.fullnode.ulimits.nofile.soft = 100000' $HOME/testnet/docker-compose.yaml
+yq -i '.services.fullnode.ulimits.nofile.hard = 100000' $HOME/testnet/docker-compose.yaml
+```
+
+reduce disk size using state-sync on validator node
+```
+yq -i '.services.validator.state_sync.state_sync_driver.bootstrapping_mode = DownloadLatestStates' $HOME/testnet/docker-compose.yaml
+yq -i '.services.validator.state_sync.data_streaming_service.max_concurrent_requests = 3' $HOME/testnet/docker-compose.yaml
+```
+
+reduce disk size using state-sync on fullnode
+```
+yq -i '.services.fullnode.state_sync.state_sync_driver.bootstrapping_mode = DownloadLatestStates' $HOME/testnet/docker-compose.yaml
+yq -i '.services.fullnode.state_sync.data_streaming_service.max_concurrent_requests = 3' $HOME/testnet/docker-compose.yaml
+```
+
 ## Leaving Validator Set
 A node can choose to leave validator set at anytime, or it would happen automatically when there's not sufficient stake on the validator account. To leave validator set, you can perform the following steps:
 
@@ -342,4 +371,80 @@ Once you're done withdrawing your fund, now you can safely shutdown the node
 cd $HOME/$WORKSPACE
 docker-compose down --volumes
 cd $HOME && rm -rf $WORKSPACE
+```
+
+# AIT3 are incentivizing people who run VFNs alongside their validators. To get the reward, you must meet the following criteria:
+* Have your VFN registered on chain in the validator set.
+* Run your VFN with the API enabled, listening on either port 80, 8080, or 443 (for https).
+* Pass the evaluation performed by our Node Health Checker for the majority of the AIT. We will be checking continuously!
+
+> **Note**
+> We’re only just starting to track this now, so it’s not too late to start running a VFN!
+
+**Q: How do I check myself whether the VFN is meeting the criteria?**\
+**A: Check using the Node Health Checker:**
+```bash
+FULLNODE_IP=<YOUR_FULLNODE_IP>
+FULLNODE_API_PORT=80
+```
+
+1. Query NHC
+```bash
+curl "https://node-checker.prod.gcp.aptosdev.com/check_node?node_url=http://${FULLNODE_IP}&api_port=${FULLNODE_API_PORT}&baseline_configuration_name=ait3_vfn" > /tmp/nhc_out
+```
+
+2. Check that your node is healthy
+```bash
+cat /tmp/nhc_out | jq .summary_explanation
+```
+
+Successful output:
+```json
+"100: Awesome!"
+```
+
+> **Note**
+> Make sure the address you’re using for the check is the same address registered in the validator set.
+
+**Q: What if it doesn’t say “100: Awesome”?**\
+**A: Read the output of /tmp/nhc_out, it should tell you what is wrong. Likely your VFN is down, the API is disabled, or the API is running on a port besides 80, 8080, or 443.**
+
+**Q: How do I know what VFN I registered on chain?**\
+**A: Unfortunately we don’t have a good way to do that right now, but we have CLI improvements coming.**
+
+**Q: Okay what if I don’t know then?**\
+**A: You can update the VFN you’ve registered in the validator set with this command:**
+```bash
+aptos node update-validator-network-addresses  \
+  --pool-address <owner-address> \
+  --full-node-host <fullnode-host:port>\
+  --full-node-network-public-key <fullnode-public-key> \
+  --profile ait3-operator
+```
+
+**Q: What if I didn’t register a VFN at all and I want to run one?**\
+**A: Run your VFN then register it using this above command.**
+
+**Q: How do I learn more about what NHC is doing?**\
+**A: Check out these articles:**
+- https://aptos.dev/nodes/node-health-checker
+- https://aptos.dev/nodes/node-health-checker-faq
+
+**Q: Do I have to run a VFN as part of AIT3?**\
+**A: You don't have to, but you should if you want to gain the reward of an extra 200 Aptos tokens.**
+
+# Node updates
+
+## Update Aptos validator
+```
+cd $HOME/testnet
+yq -i '.services.validator.image = "${VALIDATOR_IMAGE_REPO:-aptoslabs/validator}:${IMAGE_TAG:-testnet_4219d75c57115805f0faf0ad07c17becf6580202}"' docker-compose.yaml
+docker-compose up -d
+```
+
+## Update Aptos fullnode
+```
+cd $HOME/testnet
+yq -i '.services.fullnode.image = "${VALIDATOR_IMAGE_REPO:-aptoslabs/validator}:${IMAGE_TAG:-testnet_4219d75c57115805f0faf0ad07c17becf6580202}"' docker-compose.yaml
+docker-compose up -d
 ```

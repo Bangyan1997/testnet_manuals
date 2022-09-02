@@ -17,7 +17,7 @@
   <img height="100" height="auto" src="https://user-images.githubusercontent.com/50621007/182218818-f686aebb-6e48-47e1-96a2-e0d8faf44acb.png">
 </p>
 
-# Generate rebus testnet gentx
+# Generate rebus mainnet gentx
 
 ## Setting up vars
 Here you have to put name of your moniker (validator) that will be visible in explorer
@@ -29,7 +29,7 @@ Save and import variables into system
 ```
 echo "export NODENAME=$NODENAME" >> $HOME/.bash_profile
 echo "export WALLET=wallet" >> $HOME/.bash_profile
-echo "export CHAIN_ID=reb_3333-1" >> $HOME/.bash_profile
+echo "export CHAIN_ID=reb_1111-1" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 ```
 
@@ -59,7 +59,7 @@ source ~/.bash_profile
 ```
 cd $HOME
 git clone https://github.com/rebuschain/rebus.core.git 
-cd rebus.core && git checkout testnet
+cd rebus.core && git checkout master
 make install
 ```
 
@@ -74,15 +74,15 @@ rebusd config keyring-backend test
 rebusd init $NODENAME --chain-id $CHAIN_ID
 ```
 
-## Recover or create new wallet for testnet
+## Recover or create new wallet for mainnet
 Option 1 - generate new wallet
 ```
-rebusd keys add $WALLET
+rebusd keys add $WALLET --coin-type 118 --algo secp256k1
 ```
 
 Option 2 - recover existing wallet
 ```
-rebusd keys add $WALLET --recover
+rebusd keys add $WALLET --recover --coin-type 118 --algo secp256k1
 ```
 
 ## Add genesis account
@@ -106,9 +106,9 @@ rebusd gentx $WALLET 100000000000000000000arebus \
 - contents of `$HOME/.rebusd/config/*`
 
 ## Submit PR with Gentx
-1. Copy the contents of ${HOME}/.rebusdd/config/gentx/gentx-XXXXXXXX.json.
-2. Fork https://github.com/rebuschain/rebus.testnet
-3. Create a file <VALIDATOR_NAME>.json under the `rebus_3333-1/gentxs/` folder in the forked repo, paste the copied text into the file.
+1. Copy the contents of ${HOME}/.rebusd/config/gentx/gentx-XXXXXXXX.json.
+2. Fork https://github.com/rebuschain/rebus.mainnet
+3. Create a file `<VALIDATOR_NAME>.json` under the `reb_1111-1/gentxs/` folder in the forked repo, paste the copied text into the file.
 4. Create a Pull Request to the main branch of the repository
 
 ### Await further instructions!
