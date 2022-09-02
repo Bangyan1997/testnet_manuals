@@ -67,8 +67,7 @@ echo 'export POINTD_VALOPER_ADDRESS='${POITD_VALOPER_ADDRESS} >> $HOME/.bash_pro
 source $HOME/.bash_profile
 ```
 ## Fund your wallet
-Fill the form with your funds wallet info , NOT VALIDATOR WALLET!!!
-[FAUCET FORM](https://pointnetwork.io/testnet-form) , Usually the funds will be sent 24 Hour
+Wait for Point sent to your address
 
 ## Sending your first transaction
 ### Add custom network
