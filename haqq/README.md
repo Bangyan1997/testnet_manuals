@@ -73,11 +73,12 @@ echo 'export HAQQD_VALOPER_ADDRESS='${HAQQD_VALOPER_ADDRESS} >> $HOME/.bash_prof
 source $HOME/.bash_profile
 ```
 ## Fund your wallet
-Connect your Metamask and Your github account to get Testnet token
+Connect your Metamask fund account and Your github account to get Testnet token
 [FAUCET LINK](https://testedge.haqq.network/)
+### FUND ACCOUNT AND VALIDATOR ACCOUNT ARE DIFFERENT!
 
 ## Sending your first transaction
-
+After receiving faucet go Import your validator private key to Metamask , to see your validator Private key type `haqqd keys unsafe-export-eth-key wallet --keyring-backend file` , Import to Metamask then send the Faucet from your Fund wallet to your Validator wallet
 
 ### Fund the validator
 Finally, use the wallet to send however much you need from your fund address to the validator address (you can send all 1024 or choose a different strategy).
