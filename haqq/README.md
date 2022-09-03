@@ -41,6 +41,29 @@ Note : You have to synced to the lastest block , check the sync status with this
 haqqd status 2>&1 | jq .SyncInfo
 ```
 
+### State-Sync (Optional)
+Sync your node in a minutes
+```
+SNAP_RPC=78.46.16.236:41657
+peers="e15e1867f68011f80f2763e6691c89c923bf2f24@78.46.16.236:41656"
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" $HOME/.haqqd/config/config.toml
+
+LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
+BLOCK_HEIGHT=$((LATEST_HEIGHT - 500)); \
+TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+
+echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH
+
+sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
+s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
+s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
+s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"| ; \
+s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"\"|" $HOME/.haqqd/config/config.toml
+haqqd tendermint unsafe-reset-all --home $HOME/.haqqd
+wget -O $HOME/.haqqd/config/addrbook.json "https://raw.githubusercontent.com/obajay/nodes-Guides/main/haqq/addrbook.json"
+systemctl restart haqqd && journalctl -u haqqd -f -o cat
+```
+
 ## Create Wallet
 Create validator wallet using this command, Dont forget to save the Mnemonic!
 ```
