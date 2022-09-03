@@ -120,4 +120,3 @@ sudo systemctl restart haqqd
 
 echo '=============== SETUP FINISHED ==================='
 echo -e 'To check logs: \e[1m\e[32mjournalctl -u haqqd -f -o cat\e[0m'
-echo -e "To check sync status: jq .result.sync_info\e[0m"
