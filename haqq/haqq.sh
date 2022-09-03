@@ -61,6 +61,7 @@ make install
 
 # config
 haqqd config chain-id $HAQQ_CHAIN_ID
+haqqd config keyring-backend file
 
 # init
 haqqd init $NODENAME --chain-id $HAQQ_CHAIN_ID
