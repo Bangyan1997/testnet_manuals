@@ -90,7 +90,7 @@ you will see a list of keys attached to your node. Look at the one which has the
 
 (In most cases it is not needed, but if something goes wrong and if you ever want to import your validator wallet in your Metamask you will need the private key. You can get it with this command: 
 ```
-pointd keys unsafe-export-eth-key validatorkey --keyring-backend file)
+pointd keys unsafe-export-eth-key validatorkey --keyring-backend file
 ```
 
 Use this tool to convert it to Ethereum format: https://pointnetwork.io/converter.html
