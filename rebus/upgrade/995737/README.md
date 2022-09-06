@@ -15,16 +15,27 @@
 </p>
 
 <p align="center">
-  <img height="100" height="auto" src="https://user-images.githubusercontent.com/50621007/183283696-d1c4192b-f594-45bb-b589-15a5e57a795c.png">
+  <img height="100" height="auto" src="https://user-images.githubusercontent.com/50621007/182218818-f686aebb-6e48-47e1-96a2-e0d8faf44acb.png">
 </p>
 
-# Delegate to another validator	
-To complete this task you will have to delegate some tokens to another validator
-
-## 1. Delegate 100000 ustrd to kjnodes validator
-Change `<WALLET>` to your wallet name from `strided keys list`
+# Chain upgrade to commit v0.0.4
+## (OPTION 1) Manual upgrade
+Once the chain reaches the upgrade height, you will encounter the following panic error message:\
+`ERR UPGRADE "xxx" NEEDED at height: 995737`
 ```
-strided tx staking delegate stridevaloper1sxt4yssx5rqx3mqhsk6jraqeuja92ljl3ljv8y 100000ustrd --from=<WALLET> --chain-id=STRIDE-TESTNET-4 --gas=auto
+sudo systemctl stop rebusd
+cd $HOME && rm -rf rebus.core
+git clone https://github.com/rebuschain/rebus.core.git && cd rebus.core
+git checkout v0.0.4
+make install
+sudo systemctl restart rebusd && journalctl -fu rebusd -o cat
 ```
 
-## 2. Submit the transaction hash
+!!! DO NOT UPGRADE BEFORE CHAIN RECHES THE BLOCK `995737`!!!
+
+### (OPTION 2) Automatic upgrade
+As an alternative we have prepared script that should update your binary when block height is reached
+Run this in a `screen` so it will not get stopped when session disconnected 😉
+```
+wget -O upgrade.sh https://raw.githubusercontent.com/kj89/testnet_manuals/main/rebus/upgrade/995737/upgrade.sh && chmod +x upgrade.sh && ./upgrade.sh
+```
