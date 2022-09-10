@@ -34,8 +34,9 @@
     * 2.0 GHz x4 CPU
 ## Setting up vars
 ```
-NODENAME=<YOUR_MONIKER_NAME_GOES_HERE>
+NODENAME=<YOUR MONIKER>
 ```
+Change `<YOUR MONIKER>` To anything you like 
 Save and import vars into system
 ```
 echo "export NODENAME=$NODENAME" >> $HOME/.bash_profile
