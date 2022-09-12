@@ -21,10 +21,10 @@
 # Quicksilver node setup for Testnet — sourcechain-testnet
 
 Official documentation:
->- [Validator setup instructions](https://github.com/ingenuity-build/testnets)
+>- [Validator setup instructions](https://github.com/obajay/nodes-Guides/tree/main/Source)
 
 Explorer:
->-  https://source.explorers.guru/
+>-  https://explorer.testnet.sourceprotocol.io
 
 ## Usefull tools and references
 > To generate gentx for sourcechain-testnet testnet please navigate to [Generate gentx for sourcechain-testnet testnet](https://github.com/kj89/testnet_manuals/blob/main/source/gentx/README.md)
@@ -70,6 +70,19 @@ Next you have to make sure your validator is syncing blocks. You can use command
 sourced status 2>&1 | jq .SyncInfo
 ```
 
+## Snapshot 06.09.22 (0.1 GB) block height --> 2226618 from community member obajay
+Source: https://github.com/obajay/StateSync-snapshots/blob/main/Source/README.md
+```
+sudo systemctl stop sourced
+rm -rf $HOME/.source/data/
+mkdir $HOME/.source/data/
+cd $HOME
+wget http://116.202.236.115:8000/sourcedata.tar.gz
+tar -C $HOME/ -zxvf sourcedata.tar.gz --strip-components 1
+rm sourcedata.tar.gz
+sudo systemctl restart sourced && journalctl -u sourced -f -o cat
+```
+
 ### Create wallet
 To create new wallet you can use command below. Don’t forget to save the mnemonic
 ```
@@ -97,7 +110,14 @@ source $HOME/.bash_profile
 ```
 
 ### Fund your wallet
-Ask team for testnet tokens
+In order to create validator first you need to fund your wallet with testnet tokens.
+To top up your wallet join [Source discord server](https://discord.gg/mBZe8X4eW5) and navigate to:
+- **#faucet** channel
+
+To request a faucet grant:
+```
+$request <YOUR_WALLET_ADDRESS>
+```
 
 ### Create validator
 Before creating validator please make sure that you have at least 1 qck (1 qck is equal to 1000000 usource) and your node is synchronized
