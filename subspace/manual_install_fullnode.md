@@ -25,6 +25,7 @@ To setup Subspace node follow the steps below
 >Replace `YOUR_NODENAME` below with the name of your node\
 >Replace `YOUR_WALLET_ADDRESS` below with your account address from Polkadot.js wallet\
 >Replace `YOUR_PLOT_SIZE` with plot size in gigabytes or terabytes, for instance 100G or 2T (but leave at least 10G of disk space for node)
+>**Note**  Default plot size will be set to 100 GB maximum (farmers may change their plot size to be less than 100 GB, but not greater)
 ```
 NODENAME=<YOUR_NODENAME>
 WALLET_ADDRESS=<YOUR_WALLET_ADDRESS>
@@ -70,7 +71,7 @@ After=network.target
 Type=simple
 User=$USER
 ExecStart=$(which subspace-node) \\
---chain="gemini-1" \\
+--chain="gemini-2a" \\
 --execution="wasm" \\
 --pruning=1024 \\
 --keep-blocks=1024 \\
@@ -110,7 +111,7 @@ sudo systemctl restart systemd-journald
 sudo systemctl daemon-reload
 sudo systemctl enable subspaced subspaced-farmer
 subspace-farmer wipe
-subspace-node purge-chain --chain gemini-1 -y
+subspace-node purge-chain --chain gemini-2a -y
 sleep 5
 systemctl restart subspaced
 sleep 20
