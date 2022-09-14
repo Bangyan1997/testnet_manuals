@@ -25,11 +25,14 @@ To setup Subspace node follow the steps below
 >Replace `YOUR_NODENAME` below with the name of your node\
 >Replace `YOUR_WALLET_ADDRESS` below with your account address from Polkadot.js wallet\
 >Replace `YOUR_PLOT_SIZE` with plot size in gigabytes or terabytes, for instance 100G or 2T (but leave at least 10G of disk space for node)
->**Note**  Default plot size will be set to 100 GB maximum (farmers may change their plot size to be less than 100 GB, but not greater)
+
+> **Note**\
+> Default plot size will be set to 100 GB maximum (farmers may change their plot size to be less than 100 GB, but not greater)
+
 ```
 NODENAME=<YOUR_NODENAME>
 WALLET_ADDRESS=<YOUR_WALLET_ADDRESS>
-PLOT_SIZE=<YOUR_PLOT_SIZE>
+PLOT_SIZE=100G
 ```
 
 Save and import variables into system
@@ -71,7 +74,7 @@ After=network.target
 [Service]
 User=$USER
 Type=simple
-ExecStart=$(which subspace-node) --chain gemini-2a --execution wasm --pruning archive --validator --name $NODENAME
+ExecStart=$(which subspace-node) --chain gemini-2a --execution wasm --state-pruning archive --validator --name $NODENAME
 Restart=on-failure
 LimitNOFILE=65535
 
