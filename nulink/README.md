@@ -46,7 +46,7 @@ wget -O nulink.sh https://raw.githubusercontent.com/elangrr/testnet_manuals/main
 ```
 ### Post-Installation (Save your KEY!!)
 After running auto Installation you will need to put `Password` Twice.
-You will get Information about your key dont forget to SAVE IT ! Its only sow once.
+You will get Information about your key dont forget to SAVE IT ! Its only show once.
 
 ## Setup
 After running auto install command you will see output that your keystore file is saved in `/root/geth-linux-amd64-1.10.24-972007a5/keystore/UTC-XXXXX`
@@ -163,8 +163,10 @@ After that your job to run node is complete now lets go to the next step.
 
 # Final Words
 After that your node will appear `Online`, if it still appear to be `Offline` Do not worry it will be `Online` Soon.
-## [FEEDBACK FORM (OPTIONAL)](https://docs.google.com/forms/d/e/1FAIpQLSdFhnZWG6p6XLY3xqNSMRJbFFN3_M0nRXG4E23X0RPVB6b4yA/viewform?usp=send_form)
-If you have Issue you can submit a feedback
+## [FEEDBACK FORM (MUST!!)](https://docs.google.com/forms/d/e/1FAIpQLSdFhnZWG6p6XLY3xqNSMRJbFFN3_M0nRXG4E23X0RPVB6b4yA/viewform?usp=send_form)
+Submit feedback regarding to bugs or improvements for nulink services !
+
+If you did not submit form you won't be eligible!
 
 Thats it! You are done and make sure your node is not shutdown!!
 
