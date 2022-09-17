@@ -163,8 +163,8 @@ After that your job to run node is complete now lets go to the next step.
 
 # Final Words
 After that your node will appear `Online`, if it still appear to be `Offline` Do not worry it will be `Online` Soon.
-## [FEEDBACK FORM](https://docs.google.com/forms/d/e/1FAIpQLSdFhnZWG6p6XLY3xqNSMRJbFFN3_M0nRXG4E23X0RPVB6b4yA/viewform?usp=send_form)
-FILL THE FORM 
+## [FEEDBACK FORM (OPTIONAL)](https://docs.google.com/forms/d/e/1FAIpQLSdFhnZWG6p6XLY3xqNSMRJbFFN3_M0nRXG4E23X0RPVB6b4yA/viewform?usp=send_form)
+If you have Issue you can submit a feedback
 
 Thats it! You are done and make sure your node is not shutdown!!
 
