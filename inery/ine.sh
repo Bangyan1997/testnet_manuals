@@ -27,7 +27,7 @@ echo -e "\e[1m\e[32m3. Downloading and building binaries... \e[0m" && sleep 1
 # download binary
 cd $HOME \
 git clone  https://github.com/inery-blockchain/inery-node \
-cd inery-node &&
+cd inery-node \
 
 #config
 cd inery.setup \
