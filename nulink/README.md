@@ -158,7 +158,7 @@ After that your job to run node is complete now lets go to the next step.
 ![image](https://user-images.githubusercontent.com/34649601/190844089-ab76c8e4-d0f5-4269-958d-7c368347ecea.png)
  Fill the form 
 - `Worker Adress` Should be your public address
-- `Node Url` Should be your `https://IP:9151` for Example `https://123.45.67.890:9151`
+- `Node Url` Should be your `https://IP:9151/` for Example `https://123.45.67.890:9151/` ( Make sure to Copy everything ! dont miss any `/` Or else you will get an error)
 - Click Bond and Approve Transaction in your Metamask
 
 # Final Words
@@ -167,6 +167,8 @@ After that your node will appear `Online`, if it still appear to be `Offline` Do
 Submit feedback regarding to bugs or improvements for nulink services !
 
 If you did not submit form you won't be eligible!
+
+Only good submission on feedback form will get rewards
 
 Thats it! You are done and make sure your node is not shutdown!!
 
