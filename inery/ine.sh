@@ -31,4 +31,4 @@ chmod +x ine.py
 cd; source .bashrc; cd -
 
 echo '=============== SETUP FINISHED ==================='
-echo -e 'To check logs: \e[1m\e[32m finished \e[0m'
+echo -e 'Config Status: \e[1m\e[32m Finished! \e[0m'
