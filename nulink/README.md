@@ -20,6 +20,11 @@
  <img height="250" height="auto" src="https://user-images.githubusercontent.com/107190154/190568136-14f5a7d8-5b15-46fb-8132-4d38a0779171.gif">
 </p>
 
+# Official Links
+### [Official Document](https://docs.nulink.org/products/testnet)
+### [Nulink Official Website](https://www.nulink.org/)
+### [Nulink Official Telegram](https://t.me/NuLinkChannel)
+
 ## Minimum Requirements 
 - 2-4vCPU
 - 4GB of Ram
@@ -158,6 +163,8 @@ After that your job to run node is complete now lets go to the next step.
 
 # Final Words
 After that your node will appear `Online`, if it still appear to be `Offline` Do not worry it will be `Online` Soon.
+## [FEEDBACK FORM](https://docs.google.com/forms/d/e/1FAIpQLSdFhnZWG6p6XLY3xqNSMRJbFFN3_M0nRXG4E23X0RPVB6b4yA/viewform?usp=send_form)
+FILL THE FORM 
 
 Thats it! You are done and make sure your node is not shutdown!!
 
