@@ -172,7 +172,12 @@ Only good submission on feedback form will get rewards
 
 Thats it! You are done and make sure your node is not shutdown!!
 
-
+## Delete Node
+```
+sudo docker stop ursula
+sudo docker rm ursula
+sudo rm -rf $HOME/nulink
+```
 
 
 
