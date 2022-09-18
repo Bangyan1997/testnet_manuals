@@ -63,4 +63,5 @@ mkdir nulink
 
 
 echo '=============== SETUP FINISHED ==================='
-echo -e 'To check logs: \e[1m\e[32m Complete cat\e[0m'
+echo -e 'SAVE YOUR ADDRESS INFO GENERATED ABOVE!!!! \e[1m\e[32m \e[0m'
+echo '=============== SAVE YOUR INFO!!! ==================='
