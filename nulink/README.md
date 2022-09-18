@@ -163,7 +163,7 @@ After that your job to run node is complete now lets go to the next step.
 
 # Final Words
 After that your node will appear `Online`, if it still appear to be `Offline` Do not worry it will be `Online` Soon.
-## [FEEDBACK FORM (MUST!!)](https://docs.google.com/forms/d/e/1FAIpQLSdFhnZWG6p6XLY3xqNSMRJbFFN3_M0nRXG4E23X0RPVB6b4yA/viewform?usp=send_form)
+## [FEEDBACK FORM (MUST!!)](https://docs.google.com/forms/d/e/1FAIpQLSep0rgPRcMd2kUhz53GYmBoktu-u-8npU2DakmzGpmpCmYZPw/viewform)
 Submit feedback regarding to bugs or improvements for nulink services !
 
 If you did not submit form you won't be eligible!
