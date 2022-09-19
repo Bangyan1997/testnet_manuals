@@ -13,7 +13,7 @@ echo -e "\e[0m"
 
 sleep 2
 
-fi
+
 echo -e 'Setting up swapfile...\n'
 curl -s https://raw.githubusercontent.com/elangrr/testnet_manuals/main/aleo/swap4.sh | bash
 echo "=================================================="
