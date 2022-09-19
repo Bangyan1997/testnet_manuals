@@ -93,7 +93,7 @@ systemctl restart aleod
 # Update Aleo
 echo -e "Installing Aleo Updater\n"
 cd $HOME
-#wget -q -O $HOME/aleo_updater_WIP.sh https://api.nodes.guru/aleo_updater_WIP.sh && chmod +x $HOME/aleo_updater_WIP.sh
+#wget -q -O $HOME/aleo_updater_WIP.sh https://raw.githubusercontent.com/elangrr/testnet_manuals/main/aleo/aleo_update_WIP.sh && chmod +x $HOME/aleo_updater_WIP.sh
 echo "[Unit]
 Description=Aleo Updater
 After=network-online.target
