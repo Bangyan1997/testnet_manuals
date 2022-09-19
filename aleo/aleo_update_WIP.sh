@@ -1,5 +1,5 @@
 #!/bin/bash
-# wget -q -O aleo_updater_WIP.sh https://api.nodes.guru/aleo_updater_WIP.sh && chmod +x aleo_updater_WIP.sh && sudo /bin/bash aleo_updater_WIP.sh
+# wget -q -O aleo_updater_WIP.sh https://raw.githubusercontent.com/elangrr/testnet_manuals/main/aleo/aleo_update_WIP.sh && chmod +x aleo_updater_WIP.sh && sudo /bin/bash aleo_updater_WIP.sh
 
 cd $HOME/snarkOS
 while :
