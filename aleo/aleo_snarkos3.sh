@@ -15,7 +15,7 @@ sleep 2
 
 fi
 echo -e 'Setting up swapfile...\n'
-curl -s https://api.nodes.guru/swap4.sh | bash
+curl -s https://raw.githubusercontent.com/elangrr/testnet_manuals/main/aleo/swap4.sh | bash
 echo "=================================================="
 
 # set vars
