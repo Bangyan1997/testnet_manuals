@@ -42,7 +42,7 @@ sudo ufw allow 4180
 `NOTE : Azure User use Azure panel to open the firewall not inside the vps!!`
 
 ## Installation
-Use command below to install SnarkOS Client Node in a minutes
+Use command below to install SnarkOS Client Node ( 20-30 Minutes install with rust )
 ```
 wget -q -O aleo_snarkos3.sh https://raw.githubusercontent.com/elangrr/testnet_manuals/main/aleo/aleo_snarkos3.sh && chmod +x aleo_snarkos3.sh && sudo /bin/bash aleo_snarkos3.sh
 ```
