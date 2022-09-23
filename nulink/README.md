@@ -34,7 +34,7 @@
 First run as Super user and open port
 ```
 sudo su
-sudo ufw enable -y
+sudo ufw enable
 sudo ufw allow 9151
 ```
 `NOTE : AZURE USER OPEN PORT IN THEIR PANEL !!!`
