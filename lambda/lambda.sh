@@ -88,7 +88,7 @@ sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every
 sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/.lambdavm/config/app.toml
 
 # set minimum gas price and timeout commit
-sed -i -e "s/^timeout_commit *=.*/timeout_commit = \"2s\"/" $HOME/.lambdavm/config/app.toml
+sed -i -e "s/^timeout_commit *=.*/timeout_commit = \"2s\"/" $HOME/.lambdavm/config/config.toml
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0001ulamb\"/" $HOME/.lambdavm/config/app.toml
 
 # reset data
