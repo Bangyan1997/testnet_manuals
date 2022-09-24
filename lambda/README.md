@@ -94,6 +94,16 @@ lambdavm tx staking create-validator \
   --broadcast-mode block
 ```
 
+## ETC
+To unjail your validator use this command
+```
+lambdavm tx slashing unjail \
+  --broadcast-mode=block \
+  --from=$WALLET \
+  --chain-id=$LAMBDA_CHAIN_ID \
+  --fees=5000ulamb \
+  --gas=500000
+```
 ## Monitoring your validator
 
 Check TX HASH ( Which <txhash> is your txhash from the transaction
