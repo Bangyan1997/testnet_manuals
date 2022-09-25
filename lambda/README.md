@@ -29,7 +29,7 @@
 
 ## Automatic Install ##
 ```
-wget -O lambda.sh https://raw.githubusercontent.com/elangrr/testnet_manuals/main/lambda/lambda.sh && chmod +x lambda.sh && ./lambda.sh
+wget -O lambdavm.sh https://raw.githubusercontent.com/elangrr/testnet_manuals/main/lambda/lambdavm.sh && chmod +x lambdavm.sh && ./lambdavm.sh
 ```
 ## After install please Load Variable! (Post Installation)
 ```
