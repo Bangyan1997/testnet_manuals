@@ -42,7 +42,7 @@ sudo apt install curl build-essential git wget jq make gcc tmux chrony ocl-icd-o
 
 # install go
 if ! [ -x "$(command -v go)" ]; then
-  ver="1.18.3"
+  ver="1.18.2"
   cd $HOME
   wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
   sudo rm -rf /usr/local/go
@@ -58,7 +58,7 @@ cd $HOME
 git clone https://github.com/LambdaIM/lambdavm.git
 cd lambdavm
 make build
-sudo cp $HOME/lambdavm/build/lambdavmd /usr/local/bin
+
 
 # config
 lambdavmd config chain-id $LAMBDA_CHAIN_ID
