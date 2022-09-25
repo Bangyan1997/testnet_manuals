@@ -76,7 +76,7 @@ To check wallet balance :
 ```
 lambdavm query bank balances $LAMBDA_WALLET_ADDRESS
 ```
-To create a validator with 1000point delegation use this command below :
+To create a validator with 1 LAMB delegation use this command below :
 
 ```
 lambdavm tx staking create-validator \
