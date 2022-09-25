@@ -99,14 +99,16 @@ echo -e "\e[1m\e[32m4. Starting service... \e[0m" && sleep 1
 # create service
 sudo tee /etc/systemd/system/lambdavm.service > /dev/null <<EOF
 [Unit]
-Description=lambdav
+Description=lambda
 After=network-online.target
+
 [Service]
 User=$USER
 ExecStart=$(which lambdavm) start --home $HOME/.lambdavm
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=65535
+
 [Install]
 WantedBy=multi-user.target
 EOF
