@@ -90,7 +90,7 @@ lambdavm tx staking create-validator \
   --min-self-delegation="1000000" \
   --gas="300000" \
   --gas-prices="0.025ulamb" \
-  --from=$WALLET
+  --from=$WALLET \
   --broadcast-mode block
 ```
 
