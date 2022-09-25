@@ -39,7 +39,7 @@ source $HOME/.bash_profile
 ### Check info Sync
 Note : You have to synced to the lastest block , check the sync status with this command
 ```
-lambdavm status 2>&1 | jq .SyncInfo
+lambdavmd status 2>&1 | jq .SyncInfo
 ```
 
 ## Create Wallet
@@ -47,24 +47,24 @@ Create validator wallet using this command, Dont forget to save the Mnemonic!
 
 `NOTE : it is recommended to use wallet you fill in the form`
 ```
-lambdavm keys add $WALLET
+lambdavmd keys add $WALLET
 ```
 (OPTIONAL) To recover using your previous saved wallet
 ```
-lambdavm keys add $WALLET --recover
+lambdavmd keys add $WALLET --recover
 ```
 To get current list of wallet
 ```
-lambdavm keys list --keyring-backend file
+lambdavmd keys list --keyring-backend file
 ```
 To get private key of validator wallet (SAVE IT SOMEWHERE SAFE!)
 ```
-lambdavm keys unsafe-export-eth-key wallet
+lambdavmd keys unsafe-export-eth-key wallet
 ```
 ## Safe wallet Info
 ```
-LAMBDA_WALLET_ADDRESS=$(lambdavm keys show $WALLET -a)
-LAMBDA_VALOPER_ADDRESS=$(lambdavm keys show $WALLET --bech val -a)
+LAMBDA_WALLET_ADDRESS=$(lambdavmd keys show $WALLET -a)
+LAMBDA_VALOPER_ADDRESS=$(lambdavmd keys show $WALLET --bech val -a)
 echo 'export LAMBDA_WALLET_ADDRESS='${LAMBDA_WALLET_ADDRESS} >> $HOME/.bash_profile
 echo 'export LAMBDA_VALOPER_ADDRESS='${LAMBDA_VALOPER_ADDRESS} >> $HOME/.bash_profile
 source $HOME/.bash_profile
@@ -74,12 +74,12 @@ source $HOME/.bash_profile
 Before creating validator please make sure you have the funds already in your wallet
 To check wallet balance :
 ```
-lambdavm query bank balances $LAMBDA_WALLET_ADDRESS
+lambdavmd query bank balances $LAMBDA_WALLET_ADDRESS
 ```
 To create a validator with 1 LAMB delegation use this command below :
 
 ```
-lambdavm tx staking create-validator \
+lambdavmd tx staking create-validator \
   --amount=1000000000000000000ulamb \
   --pubkey=$(lamdavm tendermint show-validator) \
   --moniker=$NODENAME \
@@ -97,7 +97,7 @@ lambdavm tx staking create-validator \
 ## ETC
 To unjail your validator use this command
 ```
-lambdavm tx slashing unjail \
+lambdavmd tx slashing unjail \
   --broadcast-mode=block \
   --from=$WALLET \
   --chain-id=$LAMBDA_CHAIN_ID \
@@ -108,46 +108,46 @@ lambdavm tx slashing unjail \
 
 Check TX HASH ( Which <txhash> is your txhash from the transaction
 ```
-lambdavm query tx <txhash>
+lambdavmd query tx <txhash>
 ```
 If the transaction was correct you should instantly become part of the validators set. Check your pubkey first:
 ```
-lambdavm tendermint show-validator
+lambdavmd tendermint show-validator
 ```
 You will see a key there, you can identify your node among other validators using that key:
 ```
-lambdavm query tendermint-validator-set
+lambdavmd query tendermint-validator-set
 ```
 
 ## Useful Commands
 Check Logs
 ```
-journalctl -fu lambdavm -o cat
+journalctl -fu lambdavmd -o cat
 ```
 Start Service
 ```
-sudo systemctl start lambdavm
+sudo systemctl start lambdavmd
 ```
 Stop Service
 ```
-sudo systemctl stop lambdavm
+sudo systemctl stop lambdavmd
 ```
 Restart Service
 ```
-sudo systemctl restart lambdavm
+sudo systemctl restart lambdavmd
 ```
 ## Node Info
 Synchronization info
 ```
-lambdavm status 2>&1 | jq .SyncInfo
+lambdavmd status 2>&1 | jq .SyncInfo
 ```
 Validator Info
 ```
-lambdavm status 2>&1 | jq .ValidatorInfo
+lambdavmd status 2>&1 | jq .ValidatorInfo
 ```
 Node Info
 ```
-lambdavm status 2>&1 | jq .NodeInfo
+lambdavmd status 2>&1 | jq .NodeInfo
 ```
   
 
