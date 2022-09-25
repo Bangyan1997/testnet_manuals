@@ -156,11 +156,9 @@ lambdavm status 2>&1 | jq .NodeInfo
 ```
 sudo systemctl stop lambdavm
 sudo systemctl disable lambdavm
-sudo rm /etc/systemd/system/evmos* -rf
+sudo rm /etc/systemd/system/lambdavm* -rf
 sudo rm $(which lambdavm) -rf
 sudo rm $HOME/.lambdavm -rf
-sudo rm $HOME/point-chain -rf
-sed -i '/LAMBDAVM_/d' ~/.bash_profile
+sudo rm $HOME/lambdavm -rf
+sed -i '/lambdavm_/d' ~/.bash_profile
 ```
-
-  
