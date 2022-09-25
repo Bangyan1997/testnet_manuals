@@ -61,11 +61,11 @@ make build
 sudo cp $HOME/lambdavm/build/lambdavm /usr/local/bin
 
 # config
-lambdavmd config chain-id $LAMBDA_CHAIN_ID
-lambdavmd config keyring-backend test
+lambdavm config chain-id $LAMBDA_CHAIN_ID
+lambdavm config keyring-backend test
 
 # init
-lambdavmd init $NODENAME --chain-id $LAMBDA_CHAIN_ID
+lambdavm init $NODENAME --chain-id $LAMBDA_CHAIN_ID
 
 # download genesis and addrbook
 wget https://raw.githubusercontent.com/LambdaIM/testnets/main/lambdatest_92001-1/genesis.json
@@ -92,19 +92,19 @@ sed -i -e "s/^timeout_commit *=.*/timeout_commit = \"2s\"/" $HOME/.lambdavm/conf
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0001ulamb\"/" $HOME/.lambdavm/config/app.toml
 
 # reset data
-lambdavmd tendermint unsafe-reset-all --home $HOME/.lambdavm
+lambdavm tendermint unsafe-reset-all --home $HOME/.lambdavm
 
 
 echo -e "\e[1m\e[32m4. Starting service... \e[0m" && sleep 1
 # create service
-sudo tee /etc/systemd/system/lambdavmd.service > /dev/null <<EOF
+sudo tee /etc/systemd/system/lambdavm.service > /dev/null <<EOF
 [Unit]
 Description=lambda
 After=network-online.target
 
 [Service]
 User=$USER
-ExecStart=$(which lambdavmd) start --home $HOME/.lambdavm
+ExecStart=$(which lambdavm) start --home $HOME/.lambdavm
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=65535
@@ -115,8 +115,8 @@ EOF
 
 # start service
 sudo systemctl daemon-reload
-sudo systemctl enable lambdavmd
-sudo systemctl restart lambdavmd
+sudo systemctl enable lambdavm
+sudo systemctl restart lambdavm
 
 echo '=============== SETUP FINISHED ==================='
-echo -e 'To check logs: \e[1m\e[32mjournalctl -u lambdavmd -f -o cat\e[0m'
+echo -e 'To check logs: \e[1m\e[32mjournalctl -u lambdavm -f -o cat\e[0m'
