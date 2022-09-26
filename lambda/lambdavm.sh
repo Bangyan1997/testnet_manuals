@@ -38,7 +38,7 @@ sudo apt update && sudo apt upgrade -y
 
 echo -e "\e[1m\e[32m2. Installing dependencies... \e[0m" && sleep 1
 # packages
-sudo apt install curl build-essential git wget jq make gcc tmux chrony ocl-icd-opencl-dev libopencl-clang-dev libgomp1 make -y
+sudo apt install curl build-essential git wget jq make gcc tmux chrony -y
 
 # install go
 if ! [ -x "$(command -v go)" ]; then
