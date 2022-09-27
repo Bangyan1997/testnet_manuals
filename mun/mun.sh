@@ -60,11 +60,12 @@ cd mun
 sudo rm -rf ~/.mun
 go mod tidy
 make install
-sleep 10
+
+
 mkdir -p ~/.mun/upgrade_manager/upgrades
 mkdir -p ~/.mun/upgrade_manager/genesis/bin
 cp $(which mund) ~/.mun/upgrade_manager/genesis/bin
-sudo cp $(which mund-manager) /usr/bin
+
 
 # config
 mund config chain-id $MUN_CHAIN_ID
