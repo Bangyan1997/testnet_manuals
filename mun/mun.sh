@@ -105,8 +105,8 @@ EOF
 
 # start service
 sudo systemctl daemon-reload
-sudo systemctl enable lambdavm
-sudo systemctl restart lambdavm
+sudo systemctl enable mund
+sudo systemctl restart mund
 
 echo '=============== SETUP FINISHED ==================='
 echo -e 'To check logs: \e[1m\e[32mjournalctl -u mund -f -o cat\e[0m'
