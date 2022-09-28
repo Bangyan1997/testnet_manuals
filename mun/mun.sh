@@ -65,6 +65,8 @@ make install
 mkdir -p ~/.mun/upgrade_manager/upgrades
 mkdir -p ~/.mun/upgrade_manager/genesis/bin
 cp $(which mund) ~/.mun/upgrade_manager/genesis/bin
+sudo chmod +x mun
+sudo mv mun /usr/local/bin/
 
 
 # config
