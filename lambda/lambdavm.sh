@@ -58,7 +58,7 @@ cd $HOME
 git clone https://github.com/LambdaIM/lambdavm.git
 cd lambdavm
 make build
-sudo cp $HOME/lambdavm/build/lambdavm /usr/local/bin
+sudo cp $HOME/lambdavm/build/lambdavm $HOME/go/bin/
 
 # config
 lambdavm config chain-id $LAMBDA_CHAIN_ID
